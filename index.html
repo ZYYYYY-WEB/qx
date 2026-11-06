@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>倾学 · 学习投入诊断与个性化伴学智能体</title>
+  <meta name="description" content="倾学：面向七年级数学的学习投入诊断与个性化伴学智能体。梳理课程要求、分析个体与群体学情、生成可追溯的学习建议，并支持对话式问答。纯前端本地推理，无需服务器。">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="css/style.css?v=20261106h">
+</head>
+<body class="role-gate">
+  <div class="gate" id="gate">
+    <div class="gate__panel">
+      <div class="gate__brand">
+        <div class="gate__mark">倾</div>
+        <div><h1>倾学</h1><p>学习投入诊断与个性化伴学智能体</p></div>
+      </div>
+      <p class="gate__lead">请选择进入方式。两端数据同源，界面与功能各自独立。</p>
+      <div class="gate__options">
+        <button class="gate__card" data-act="enter-role" data-role="teacher">
+          <span class="gate__badge">教师端</span>
+          <h2>学情分析与学习建议</h2>
+          <p>查看课程要求、个体与群体学情，生成并核对个性化学习建议，管理分析数据。</p>
+          <span class="gate__go">进入教师端 →</span>
+        </button>
+        <button class="gate__card" data-act="enter-role" data-role="student">
+          <span class="gate__badge gate__badge--light">学生端</span>
+          <h2>个人练习与学习计划</h2>
+          <p>查看个人练习记录与今日学习任务，完成练习并提交自评。</p>
+          <span class="gate__go">进入学生端 →</span>
+        </button>
+      </div>
+      <p class="gate__note">本地规则推理 · 无需联网 · 数据不出浏览器</p>
+    </div>
+  </div>
+
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand__mark">倾</div>
+      <div class="brand__text">
+        <h1>倾学</h1>
+        <p id="brandSub">让每一次学习投入被看见</p>
+      </div>
+    </div>
+
+    <nav class="nav" aria-label="主导航">
+      <button class="nav__item" data-act="nav" data-role="student" data-view="student">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c1.2-3.2 3.8-5 7-5s5.8 1.8 7 5"/></svg>
+        学生中心
+      </button>
+      <button class="nav__item is-active" data-act="nav" data-role="teacher" data-view="overview">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        总览
+      </button>
+      <button class="nav__item" data-act="nav" data-role="teacher" data-view="curriculum">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5z"/><path d="M4 5.5v15"/></svg>
+        课程要求
+      </button>
+      <button class="nav__item" data-act="nav" data-role="teacher" data-view="diagnosis">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h4l2.5-7 4 14 2.5-7H21"/></svg>
+        学情分析
+      </button>
+      <button class="nav__item" data-act="nav" data-role="teacher" data-view="recommend">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5 13 13l-4.5 2.5L11 11z"/></svg>
+        学习建议
+      </button>
+      <button class="nav__item" data-act="nav" data-role="teacher" data-view="trace">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 7h6a3 3 0 0 1 0 6H9a3 3 0 0 0 0 6h6"/><circle cx="6" cy="7" r="2"/><circle cx="6" cy="19" r="2"/></svg>
+        依据核对
+      </button>
+      <button class="nav__item" data-act="nav" data-role="teacher" data-view="import">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M4 19h16"/></svg>
+        数据管理
+      </button>
+    </nav>
+
+    <div class="sidebar__role">
+      <button class="role-link" data-act="switch-role" data-role="student">进入学生端 →</button>
+      <button class="role-link" data-act="switch-role" data-role="teacher">← 返回教师端</button>
+    </div>
+
+    <div class="sidebar__foot">
+      <p class="side-note">本地规则推理 · 无需联网<br>数据不出浏览器</p>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div class="topbar__title">
+        <span class="topbar__crumb" id="crumb">概览</span>
+        <h2 id="pageTitle">学情诊断与个性化学习智能体</h2>
+      </div>
+      <div class="topbar__actions">
+        <span class="mode-badge" id="modeBadge">教师端</span>
+        <span class="badge badge--soft topbar__teacher-only" id="sourceBadge">内置演示数据</span>
+        <button class="btn btn--ghost topbar__teacher-only" data-act="export-bundle">导出成果包</button>
+        <button class="btn btn--primary topbar__teacher-only" data-act="print">打印报告</button>
+      </div>
+    </header>
+
+    <div class="content">
+      <section class="view" id="view-overview"></section>
+      <section class="view" id="view-student" hidden></section>
+      <section class="view" id="view-curriculum" hidden></section>
+      <section class="view" id="view-diagnosis" hidden></section>
+      <section class="view" id="view-recommend" hidden></section>
+      <section class="view" id="view-trace" hidden></section>
+      <section class="view" id="view-import" hidden></section>
+    </div>
+  </main>
+
+  <div class="modal" id="modal" hidden>
+    <div class="modal__mask" data-act="close-modal"></div>
+    <div class="modal__panel" role="dialog" aria-modal="true">
+      <div class="modal__head">
+        <h2 id="modalTitle">详情</h2>
+        <button class="icon-btn" data-act="close-modal" aria-label="关闭">×</button>
+      </div>
+      <div class="modal__body" id="modalBody"></div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" hidden></div>
+
+  <button class="chat-fab" id="chatFab" data-act="chat-toggle" aria-label="打开智能问答">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a8 8 0 0 1-8 8H7l-4 3v-5.5A8 8 0 1 1 21 12z"/><path d="M8.5 12h.01M12 12h.01M15.5 12h.01"/></svg>
+    <span>智能问答</span>
+  </button>
+
+  <aside class="chat" id="chatPanel" hidden aria-label="智能问答">
+    <div class="chat__head">
+      <div class="chat__who">
+        <span class="chat__dot"></span>
+        <div><b>小倾 · 智能问答</b><p>基于当前学情数据，在本地即时作答</p></div>
+      </div>
+      <button class="icon-btn chat__close" data-act="chat-toggle" aria-label="收起">×</button>
+    </div>
+    <div class="chat__body" id="chatBody"></div>
+    <div class="chat__chips" id="chatChips"></div>
+    <form class="chat__form" id="chatForm">
+      <input id="chatInput" autocomplete="off" placeholder="例：S-12 的知识点掌握情况 / 需重点关注的学生" aria-label="输入问题">
+      <button type="submit" class="chat__send">发送</button>
+    </form>
+  </aside>
+
+  <noscript><div class="noscript">本智能体需要启用 JavaScript 才能在浏览器本地完成学情分析。</div></noscript>
+
+  <script src="js/data.js?v=20261106g"></script>
+  <script src="js/engine.js?v=20261106g"></script>
+  <script src="js/app.js?v=20261106g"></script>
+</body>
+</html>
